@@ -1,41 +1,49 @@
-import { Link, Outlet } from 'react-router-dom';
-import { useUserContext } from '../Hooks/contextHooks.js';
-import { useEffect } from 'react';
+import { Link, Outlet } from "react-router-dom";
+import { useUserContext } from "../Hooks/contextHooks";
 
 const Layout = () => {
-    const { user, handleAutoLogin } = useUserContext();
-
-    useEffect(() => {
-        handleAutoLogin();
-    }, []);
+    const { user } = useUserContext();
 
     return (
-        <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    {user ? (
-                        <>
-                            <li>
-                                <Link to="/profile">Profile</Link>
-                            </li>
-                            <li>
-                                <Link to="/upload">Upload</Link>
-                            </li>
-                            <li>
-                                <Link to="/logout">Logout</Link>
-                            </li>
-                        </>
-                    ) : (
+        <div className="min-h-screen flex flex-col">
+            <header className="border-b border-gray-300 pb-3 mb-6">
+                <nav>
+                    <ul className="flex flex-wrap items-center gap-4 *:rounded-md *:bg-slate-800 *:text-white *:px-3 *:py-1.5 *:text-sm *:font-medium">
                         <li>
-                            <Link to="/login">Login</Link>
+                            <Link to="/" className="hover:underline">
+                                Home
+                            </Link>
                         </li>
-                    )}
-                </ul>
-            </nav>
-            <main>
+                        {user ? (
+                            <>
+                                <li>
+                                    <Link to="/profile" className="hover:underline">
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/upload" className="hover:underline">
+                                        Upload
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/logout" className="hover:underline">
+                                        Logout
+                                    </Link>
+                                </li>
+                            </>
+                        ) : (
+                            <li>
+                                <Link to="/login" className="hover:underline">
+                                    Login
+                                </Link>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
+            </header>
+
+            <main className="flex-1">
                 <Outlet />
             </main>
         </div>
